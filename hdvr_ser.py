@@ -67,8 +67,8 @@ def update():
   print('update',x1,y1,z1,w1,'|',x2,y2,z2,'|',xi,yi,zi)
   serout('F0011'+format(xi+255,'03d')+format(yi+255,'03d')+format(zi+255,'03d'))
 
-async def seloop():
-  global ser,norm,theta,phi,x2,y2,z2
+def connect():
+  global ser
   try:
     ser = serial.Serial(PORT,115200,timeout=None)
     ser.timeout=0
@@ -76,6 +76,10 @@ async def seloop():
   except Exception:
     print('Connect error')
     exit(1)
+
+async def seloop():
+  global ser,norm,theta,phi,x2,y2,z2
+  connect()
 
   while True:
     cmd = await queue.get()
