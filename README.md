@@ -1,17 +1,24 @@
 # TestTools
 ## 環境
 - 対応OS Win10 Linux
-- Pythonバージョン 3.8
+- Pythonバージョン 3.8  
+インストールは下記など参考に  
+https://www.python.jp/install/windows/install.html
 
-## 追加パッケージ
+## 追加パッケージのインストール
+### pipコマンド
+パッケージのインストールにはpipを使います。インストール書式は
+~~~
+pip install <パッケージ名>
+~~~
+です。もしPythonの他のバージョンが混在している時は、Ver.3.8を明示します。
+~~~
+py -3.8 -m pip install <パッケージ名>
+~~~
 ### PySimpleGUI  
 新しいPythonのGUIフレームワーク
 ~~~
-pip install pysinplegui
-~~~
-マルチバージョン環境(3.5と3.8が同居)ではインストールに注意ください
-~~~
-py -3.8 -m pip install pysimplegui
+pip install pysimplegui
 ~~~
 
 ### PySerial  
@@ -21,9 +28,8 @@ pip install pyserial
 ~~~
 
 ### Bleak
-BLEライブラリ
-注意！Pythonは3.8以降でないとエラーとなります。
-インストール
+BLEライブラリ  
+Pythonは3.8以降でないとエラーとなります。  
 ~~~
 pip install bleak
 ~~~
@@ -45,23 +51,21 @@ py -3.8 bl.py
 以下のURLの*USBドライバーのインストール*を参考にドライバーをインストください。  
 https://developer.sony.com/develop/spresense/docs/arduino_set_up_ja.html
 
-- COMポート番号  
-デバイスおよびSPRESENSEは**COMポート**として認識されます。
-<img src="img/fig2.png" width="500" />  
-Silicon Lab...がSPRESENSE、USBシリアルポートがHapticsデバイスです。  
-それぞれのポート名に合わせて、hapt_xyz.pyの9,14行目を修正します(下記参照)。
+- COMポート番号の確認  
+デバイスおよびSPRESENSEは**COMポート**として認識されます。Silicon Lab...がSPRESENSE、USBシリアルポートがHapticsデバイスです。  
+<img src="img/fig2.png" width="500" />
 
+- COMポート番号の反映  
+それぞれのポート名に合わせて、*hapt_xyz.py*の9,14行目を修正します(下記参照)。  
 ~~~
 ##########################################
 #Hap device driver
 import hdvr_ser as hdvr
 hdvr.PORT='COM9'
-
 ##########################################
 #Spresense serial driver
 import sdvr_ser as sdvr
 sdvr.PORT='COM5'
-
 ##########################################
 ~~~
 
@@ -95,10 +99,10 @@ update -0.08 0.1 0.1 0.99 | 0 0 0 | 0 0 0
 serout b'$18' b'F0011255255255' b'45'
 ~~~
   1. update  
-updateに続く10個の数字の意味は
-  - 左から4個がジャイロ(Quaternion)
-  - 次の3個が方向指令(XYZ)
-  - 最後の3個が姿勢補正後のデバイスへの指令(XYZ)
+updateに続く10個の数字の意味は  
+    - 左から4個がジャイロ(Quaternion)
+    - 次の3個が方向指令(XYZ)
+    - 最後の3個が姿勢補正後のデバイスへの指令(XYZ)
 
   2. serout  
 seroutに続くコードは、デバイスへ送信しているコマンドを示します。
